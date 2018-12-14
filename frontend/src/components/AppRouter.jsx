@@ -34,6 +34,7 @@ class AppRouter extends Component {
                         <Route path="/login" component={Login} />
                         <Route path="/sign-up" component={SignUp} />
 
+
                         <Route component={NotFound} />
                     </Switch>
                 </div>
