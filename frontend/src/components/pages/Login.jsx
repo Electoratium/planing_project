@@ -14,7 +14,7 @@ class Login extends Component {
     render() {
         return (
             <div className="login-container">
-                <form className="form-signin" onSubmit={onLogin}>
+                <form className="form-signin" onSubmit={this.onLogin}>
                     <div className="text-center mb-4">
                         <h1 className="h3 mb-3 font-weight-normal">Вход</h1>
                     </div>
