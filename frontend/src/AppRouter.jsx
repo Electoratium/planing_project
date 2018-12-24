@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {Provider} from 'react-redux';
 
-
+import PrivateRoute from './containers/PrivateRoute';
 
 import Header from './components/base/Header';
 import Home from './components/pages/Home';
@@ -14,7 +14,7 @@ import NotFound from './components/pages/NotFound';
 
 import store from './store';
 
-import * as loginActions from './actions/login';
+import {loginActions} from './actions/login';
 
 
 class AppRouter extends Component {
@@ -30,7 +30,9 @@ class AppRouter extends Component {
                         <Header />
                         <Switch>
                             <Route path="/" exact component={Home} />
-                            <Route path="/planing/" component={Planing} />
+                            {/*<Route path="/planing/" component={Planing} />*/}
+                             <PrivateRoute path="/planing" component={Planing} />
+                                {/*<PrivateRoute path="/finance" component={Finance} />*/}
                             <Route path="/login" component={Login} />
                             <Route path="/sign-up" component={SignUp} />
 

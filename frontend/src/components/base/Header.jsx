@@ -1,7 +1,8 @@
 import React from 'react';
-
-
 import {Link} from "react-router-dom";
+
+import LoginBar from '../../containers/pages/LoginBar';
+
 
 
 function Header() {
@@ -16,7 +17,10 @@ function Header() {
                         <Link to='/planing/'>Planing</Link>
                     </li>
                     <li>Finance</li>
-                    <li><Link to="/login">Login</Link> | <Link to="/sign-up">Sign Up</Link></li>
+
+                    <LoginBar/>
+
+                    {/*<li><Link to="/login">Login</Link> | <Link to="/sign-up">Sign Up</Link></li>*/}
                 </ul>
             </nav>
         </header>

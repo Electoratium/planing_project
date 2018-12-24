@@ -2,9 +2,9 @@
 import { createStore, applyMiddleware } from 'redux';
 import allReducers from '../reducers/index';
 
-import logger from 'redux-logger';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
-// делаем хранилище асинхронным
-import promise from 'redux-promise';
 
-export default createStore(allReducers, applyMiddleware(promise, logger));
+
+export default createStore(allReducers, composeWithDevTools(applyMiddleware(thunk)));
