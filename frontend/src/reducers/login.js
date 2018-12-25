@@ -1,24 +1,11 @@
-import {actionCookies} from '../modules/manageCookies';
+import {cookies} from '../modules/manageCookies';
 
-
-const initialState = {
-    token: '9b2a50805819972f208b73b9620c5025da0e6348',
-    isValidToken: false
-};
-
-
-
-
-const storageUserName = actionCookies.get('userName');
-
-if(storageUserName) {
-    initialState.userName = storageUserName;
-}
+const initialState = {};
 
 export default function loginReducer(state, action) {
     switch (action.type) {
         case 'LOGIN':
-             actionCookies.set('userName', action.payload.userName, 5);
+             cookies.set('userName', action.payload.userName, 5);
 
             return {
                 ...state,
@@ -27,17 +14,17 @@ export default function loginReducer(state, action) {
 
             break;
         case 'LOGOUT':
-            actionCookies.delete('userName', '/');
+            cookies.delete('token', '/');
 
             return {};
             break;
         case 'CHECK_TOKEN':
             return {
                 ...state,
-                isValidToken: action.isValidToken
+                ...action.payload
+
             };
         default:
             return initialState;
     }
-
 }

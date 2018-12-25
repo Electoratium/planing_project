@@ -5,8 +5,9 @@ import {Redirect} from 'react-router';
 // import {bindActionCreators} from 'redux';
 
 
-import {loginActions} from '../../actions/login';
+import DangerBar from '../../components/DangerBar';
 
+import {loginActions} from '../../actions/login';
 
 
 
@@ -26,7 +27,7 @@ class LoginForm extends Component {
 
         this.cleanLoginForm();
     }
-    cleanLoginForm(){
+    cleanLoginForm() {
         this.emailInput.value = '';
         this.pswrdInput.value = '';
         this.isSaveLoginCheckbox.checked = false;
@@ -35,6 +36,7 @@ class LoginForm extends Component {
 
 
     render() {
+
         if(this.props.login.status === 'CONFIRM') {
             return <Redirect to="/planing" />
         }

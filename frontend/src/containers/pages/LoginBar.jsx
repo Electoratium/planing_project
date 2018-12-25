@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
+
+import {loginActions} from '../../actions/login';
 
 class UserName extends Component {
     logout(e) {
@@ -31,8 +33,7 @@ function mapStateToProps(state) {
 }
 
 export default connect(
-    mapStateToProps,
-    dispatch => ({
-        onLogout: () => dispatch({type: 'LOGOUT'})
+    mapStateToProps, dispatch => ({
+        onLogout: () => dispatch(loginActions.logout())
     })
 )(UserName);

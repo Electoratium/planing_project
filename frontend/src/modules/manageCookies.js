@@ -17,7 +17,7 @@ const deleteCookie = (name, path) => {
 
 
 
-export const actionCookies = {
+export const cookies = {
     'set': setCookie,
     'get': getCookie,
     'delete': deleteCookie
