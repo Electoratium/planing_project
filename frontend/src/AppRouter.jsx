@@ -13,7 +13,6 @@ import NotFound from './components/pages/NotFound';
 
 import {loginActions} from './actions/login';
 
-
 class AppRouter extends Component {
     componentDidMount() {
         // loginActions.checkToken();
@@ -69,9 +68,7 @@ function mapStateToProps(state) {
     };
 }
 export default connect(mapStateToProps, dispatch => ({
-    onCheckToken: () => {
-         dispatch(loginActions.checkToken());
-    }
+    onCheckToken: () => dispatch(loginActions.checkToken())
 
 }))(AppRouter);
 

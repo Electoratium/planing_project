@@ -5,8 +5,6 @@ import {Redirect} from 'react-router';
 // import {bindActionCreators} from 'redux';
 
 
-import DangerBar from '../../components/DangerBar';
-
 import {loginActions} from '../../actions/login';
 
 
@@ -16,7 +14,7 @@ class LoginForm extends Component {
         e.preventDefault();
 
         const userData = {
-            userName: this.emailInput.value,
+            email: this.emailInput.value,
             password: this.pswrdInput.value,
             isChecked: this.isSaveLoginCheckbox.checked
         };
@@ -25,7 +23,7 @@ class LoginForm extends Component {
         this.props.onLogin(userData);
 
 
-        this.cleanLoginForm();
+        // this.cleanLoginForm();
     }
     cleanLoginForm() {
         this.emailInput.value = '';
@@ -47,12 +45,22 @@ class LoginForm extends Component {
                 </div>
                 <div className="form-label-group">
                     <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required="" autoFocus="" ref={ input => this.emailInput = input } />
-                        <label htmlFor="inputEmail">Email</label>
+                    <label htmlFor="inputEmail">Email *</label>
+                    <div>
+                        <small id="emailHelp" className="text-danger">
+                            Вибраний email не існує
+                        </small>
+                    </div>
                 </div>
 
                 <div className="form-label-group">
                     <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="" ref={ input => this.pswrdInput = input } />
-                    <label htmlFor="inputPassword">Пароль</label>
+                    <label htmlFor="inputPassword">Пароль *</label>
+                    <div>
+                        <small id="passwordHelp" className="text-danger">
+                            Пароль не вірний
+                        </small>
+                    </div>
                 </div>
 
                 <div className="checkbox mb-3">
@@ -81,7 +89,7 @@ function mapStateToProps(state) {
 export default connect(
     mapStateToProps,
     dispatch => ({
-        onLogin: loginData => dispatch(loginActions.fakeAuth(loginData))
+        onLogin: loginData => dispatch(loginActions.login(loginData))
 
     })
 )(LoginForm);
