@@ -10,7 +10,7 @@ import Footer from '../base/Footer';
 
 class Home extends Component {
     showCars () {
-        return this.props.cars.map( (car) => {
+        return this.props.cars.map( car => {
             return (
                 <li  key={car.id}>{car.name}</li>
             );

@@ -24,6 +24,9 @@ export default function loginReducer(state, action) {
                 ...action.payload
 
             };
+
+        //    Я ДОБАВИЛ
+            break;
         default:
             return initialState;
     }

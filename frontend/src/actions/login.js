@@ -11,7 +11,7 @@ const checkStatus = {
 const checkToken = () => {
     return dispatch => {
         const token = cookies.get('token');
-        // if this.props.errors отображать компоненнт danget bar
+        // if this.props.errors отображать компоненнт danger bar
         if(token) {
             return Axios.post('http://127.0.0.1:8000/api/v1/check-token', {'token': token})
                 .then(response => {
