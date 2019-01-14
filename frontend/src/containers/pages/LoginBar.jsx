@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 
 import {loginActions} from '../../actions/login';
+import {bindActionCreators} from "redux";
 
 class UserName extends Component {
     logout(e) {
@@ -32,8 +33,15 @@ function mapStateToProps(state) {
     };
 }
 
+function matchDispatchToProps (dispatch) {
+    return bindActionCreators({
+        onLogout: loginActions.logout
+    }, dispatch)
+}
 export default connect(
-    mapStateToProps, dispatch => ({
-        onLogout: () => dispatch(loginActions.logout())
-    })
+    mapStateToProps,
+    matchDispatchToProps
+    //     dispatch => ({
+    //     onLogout: () => dispatch(loginActions.logout())
+    // })
 )(UserName);

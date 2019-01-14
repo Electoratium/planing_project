@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import {cookies} from '../modules/manageCookies';
-
+import history from '../history/history';
 
 const checkStatus = {
     acceptable: 'ACCEPTABLE',
@@ -81,12 +81,13 @@ const login = (loginData) => {
 };
 
 const logout = () => {
-  return dispatch => {
+    history.push('/');
+
+    return dispatch => {
       dispatch({
         type: 'LOGOUT'
       });
-  };
-
+    };
 };
 
 

@@ -6,7 +6,7 @@ import {Redirect} from 'react-router';
 import { ValidatorForm } from 'react-form-validator-core';
 import LoginField from '../../components/LoginField';
 
-// import {bindActionCreators} from 'redux';
+import {bindActionCreators} from 'redux';
 
 
 import {loginActions} from '../../actions/login';
@@ -100,16 +100,13 @@ function mapStateToProps(state) {
 
 
 
-// function matchDispatchToProps (dispatch) {
-//
-//
-//     return bindActionCreators({select: select}, dispatch)
-// }
+function matchDispatchToProps (dispatch) {
+    return bindActionCreators({
+        onLogin: loginData => dispatch(loginActions.login(loginData))
+    }, dispatch)
+}
 
 export default connect(
     mapStateToProps,
-    dispatch => ({
-        onLogin: loginData => dispatch(loginActions.login(loginData))
-
-    })
+    matchDispatchToProps
 )(LoginForm);
