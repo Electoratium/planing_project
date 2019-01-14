@@ -4,7 +4,7 @@ import AppRouter from './AppRouter';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-import './Styles/Index.css';
+import './styles/Index.css';
 import {Provider} from "react-redux";
 
 

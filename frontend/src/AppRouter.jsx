@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux';
 import PrivateRoute from './containers/PrivateRoute';
 
@@ -12,36 +12,19 @@ import NotFound from './components/pages/NotFound';
 
 
 import {loginActions} from './actions/login';
+import history from './history/history';
+
+
 
 class AppRouter extends Component {
     componentDidMount() {
         // loginActions.checkToken();
         this.props.onCheckToken();
-
-        // async -> просто обертка, которая возвращает промис из ф-ии
-        // async function hello() {
-        //     const data = await Axios.post('http://127.0.0.1:8000/api/v1/check-token', {'token': '9b2a50805819972f208b73b9620c5025da0e6348'});
-        //
-        //     //АСИНХРОННО!!!! но в тоже время как бы синхронно!!!!!!!!!
-        //     let [data1, data2] = await Promise.all([
-        //         Axios.post('http://127.0.0.1:8000/api/v1/check-token', {'token': '9b2a50805819972f208b73b9620c5025da0e6348'}),
-        //         Axios.post('http://127.0.0.1:8000/api/v1/check-token', {'token': '9b2a50805819972f208b73b9620c5025da0e6348'})
-        //     ]);
-        //
-        //     // console.log(datas);
-        //     //
-        //
-        //
-        //     return [data1, data2];
-        // }
-        //
-        // hello().then(data => console.log(data));
-
     }
 
     render () {
         return (
-            <Router>
+            <Router history={history}>
                 <div className="container-fluid">
                     <Header />
                     <Switch>

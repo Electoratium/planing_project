@@ -5,7 +5,8 @@ const initialState = {};
 export default function loginReducer(state, action) {
     switch (action.type) {
         case 'LOGIN':
-             cookies.set('userName', action.payload.userName, 5);
+            cookies.set('userName', action.payload.userName, 5);
+
 
             return {
                 ...state,

@@ -56,19 +56,22 @@ const login = (loginData) => {
         };
 
         if(loginData) {
-            if(loginData.email) {
-                if(loginData.password) {
-
-                }
-                else {
-
-                }
 
 
-            }
-            else {
-
-            }
+            console.log(loginData)
+            // if(loginData.email) {
+            //     if(loginData.password) {
+            //
+            //     }
+            //     else {
+            //
+            //     }
+            //
+            //
+            // }
+            // else {
+            //
+            // }
 
         }
 

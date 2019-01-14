@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.8.3",
     "ajv": "^6.6.2",
     "axios": "^0.18.0",
+    "history": "^4.7.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-form-validator-core": "^0.5.1",
