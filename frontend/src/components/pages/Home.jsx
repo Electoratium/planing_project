@@ -1,27 +1,25 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-
-import {car} from "../../actions/cars";
+// import {connect} from 'react-redux';
+// import {bindActionCreators} from 'redux';
 
 
 import Footer from '../base/Footer';
 
 
 class Home extends Component {
-    showCars () {
-        return this.props.cars.map( car => {
-            return (
-                <li  key={car.id}>{car.name}</li>
-            );
-        });
-    }
+    // showCars () {
+    //     return this.props.cars.map( car => {
+    //         return (
+    //             <li  key={car.id}>{car.name}</li>
+    //         );
+    //     });
+    // }
 
     render() {
         return (
             <div>
                 <ul>
-                    {this.showCars()}
+                    {/*{this.showCars()}*/}
                 </ul>
                 <p>Home page</p>
 
@@ -31,17 +29,19 @@ class Home extends Component {
     }
 }
 
+//
+// function mapStateToProps(state) {
+//     return {
+//     }
+// }
+//
+// function matchDispatchToProps(dispatch) {
+//         return bindActionCreators({
+//         }, dispatch)
+// }
+//
+// export default connect(mapStateToProps)(Home);
 
-function mapStateToProps(state) {
-    return {
-        cars: state.cars
-    }
-}
 
-function matchDispatchToProps(dispatch) {
-        return bindActionCreators({
-            carAction: car
-        }, dispatch)
-}
 
-export default connect(mapStateToProps)(Home);
+export default Home;

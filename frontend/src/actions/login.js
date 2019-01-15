@@ -1,5 +1,7 @@
 import Axios from 'axios';
-import {cookies} from '../modules/manageCookies';
+import { cookies } from '../modules/manageCookies';
+import constants from '../modules/constants';
+
 import history from '../history/history';
 
 const checkStatus = {
@@ -13,7 +15,7 @@ const checkToken = () => {
         const token = cookies.get('token');
         // if this.props.errors отображать компоненнт danger bar
         if(token) {
-            return Axios.post('http://127.0.0.1:8000/api/v1/check-token', {'token': token})
+            return Axios.post(`${constants.baseApiUrl}/check-token`, {'token': token})
                 .then(response => {
 
                     // cookies.set('token', token, 5);
@@ -47,37 +49,23 @@ const checkToken = () => {
 };
 
 const login = (loginData) => {
-    // return dispatch => {
-        const errors = {
-            'invalidEmail': 'Невірний email',
-            'InvalidPassword': 'Невірний пароль',
-            'blockedUser': 'Ваш аккаунт заблоковано',
-            'unhandledError': 'Виникла помилка, на сервері, спробуйте ще раз'
-        };
+    return dispatch => {
 
         if(loginData) {
 
 
-            console.log(loginData)
-            // if(loginData.email) {
-            //     if(loginData.password) {
-            //
-            //     }
-            //     else {
-            //
-            //     }
-            //
-            //
-            // }
-            // else {
-            //
-            // }
-
+            return Axios.post(`${constants.baseApiUrl}/api-token-auth`, loginData)
+                .then( response => {
+                    console.log(response);
+                })
+                .catch( err => {
+                    console.log(err);
+                })
         }
 
 
 
-    // };
+    };
 };
 
 const logout = () => {

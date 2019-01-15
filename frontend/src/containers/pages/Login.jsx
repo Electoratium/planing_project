@@ -99,7 +99,6 @@ function mapStateToProps(state) {
 }
 
 
-
 function matchDispatchToProps (dispatch) {
     return bindActionCreators({
         onLogin: loginData => dispatch(loginActions.login(loginData))

@@ -15,7 +15,7 @@ class UserName extends Component {
         if(this.props.login.userName) {
             return (
                     <li>
-                        <Link to="/profile">{ this.props.login.userName}</Link> | <a href="#" onClick={ e => this.logout(e)}>Logout</a>
+                        <Link to="/profile">{ this.props.login.userName}</Link> | <Link to="/" onClick={ e => this.logout(e)}>Logout</Link>
                     </li>
                 );
         }

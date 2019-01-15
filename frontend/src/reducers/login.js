@@ -12,22 +12,16 @@ export default function loginReducer(state, action) {
                 ...state,
                 ...action.payload
             };
-
-            break;
         case 'LOGOUT':
             cookies.delete('token', '/');
 
             return {};
-            break;
         case 'CHECK_TOKEN':
             return {
                 ...state,
                 ...action.payload
 
             };
-
-        //    Я ДОБАВИЛ
-            break;
         default:
             return initialState;
     }

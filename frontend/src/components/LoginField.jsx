@@ -1,5 +1,5 @@
 import React from 'react';
-import {ValidatorComponent, ValidatorForm} from 'react-form-validator-core';
+import {ValidatorComponent} from 'react-form-validator-core';
 
 class LoginField extends ValidatorComponent {
 
