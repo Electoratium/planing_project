@@ -52,11 +52,9 @@ const login = (loginData) => {
     return dispatch => {
 
         if(loginData) {
-
-
             return Axios.post(`${constants.baseApiUrl}/api-token-auth`, loginData)
                 .then( response => {
-                    console.log(response);
+                    console.log(response.data);
                 })
                 .catch( err => {
                     console.log(err);
