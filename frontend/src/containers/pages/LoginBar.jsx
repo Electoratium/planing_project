@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 
-import {loginActions} from '../../actions/login';
+import loginActions from '../../actions/login';
 import {bindActionCreators} from "redux";
 
 class UserName extends Component {
@@ -12,10 +12,10 @@ class UserName extends Component {
         this.props.onLogout();
     }
     render() {
-        if(this.props.login.userName) {
+        if(this.props.login.email) {
             return (
                     <li>
-                        <Link to="/profile">{ this.props.login.userName}</Link> | <Link to="/" onClick={ e => this.logout(e)}>Logout</Link>
+                        <Link to="/profile">{ this.props.login.email}</Link> | <Link to="/" onClick={ e => this.logout(e)}>Logout</Link>
                     </li>
                 );
         }

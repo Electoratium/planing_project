@@ -3,9 +3,6 @@ import React, {Component} from 'react';
 // import {bindActionCreators} from 'redux';
 
 
-import Footer from '../base/Footer';
-
-
 class Home extends Component {
     // showCars () {
     //     return this.props.cars.map( car => {
@@ -22,8 +19,6 @@ class Home extends Component {
                     {/*{this.showCars()}*/}
                 </ul>
                 <p>Home page</p>
-
-                <Footer />
             </div>
         );
     }

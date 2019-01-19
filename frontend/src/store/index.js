@@ -1,4 +1,3 @@
-// applyMiddleware для применения плагинов
 import { createStore, applyMiddleware } from 'redux';
 import allReducers from '../reducers/index';
 

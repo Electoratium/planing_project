@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 
-import Footer from '../base/Footer';
-
 
 class Planing extends Component {
     state = {
@@ -15,8 +13,6 @@ class Planing extends Component {
         return (
             <div>
                 <p>Planing page</p>
-
-                <Footer />
             </div>
         );
     }

@@ -1,49 +1,33 @@
 import Axios from 'axios';
 import { cookies } from '../modules/manageCookies';
 import constants from '../modules/constants';
-
 import history from '../history/history';
-
-const checkStatus = {
-    acceptable: 'ACCEPTABLE',
-    invalid: 'INVALID',
-    not_set: 'NOT_SET'
-};
 
 const checkToken = () => {
     return dispatch => {
         const token = cookies.get('token');
         // if this.props.errors отображать компоненнт danger bar
         if(token) {
-            return Axios.post(`${constants.baseApiUrl}/check-token`, {'token': token})
+            return Axios.post(`${constants.baseApiUrl}/check-token`, { token })
                 .then(response => {
-
-                    // cookies.set('token', token, 5);
                     dispatch ({
-                        type: 'CHECK_TOKEN',
+                        type: constants.loginActions.checkToken,
                         payload: {
-                            status: checkStatus.acceptable,
                             ...response.data
                         }
                     });
                 })
                 .catch( err => {
-                    console.log(err);
-
-                    dispatch ( {
-                        type: 'CHECK_TOKEN',
-                        payload: {
-                            status: checkStatus.invalid
-                        }
-                    });
+                    cookies.delete('token', '/');
+                    cookies.delete('email', '/');
                 })
-            }
-            dispatch ( {
-                type: 'CHECK_TOKEN',
-                payload: {
-                    status: checkStatus.not_set
-                }
-            });
+        }
+        // return dispatch ( {
+        //     type: constants.loginActions.checkToken,
+        //     payload: {
+        //         status: checkStatus.not_set
+        //     }
+        // });
     }
 
 };
@@ -54,15 +38,42 @@ const login = (loginData) => {
         if(loginData) {
             return Axios.post(`${constants.baseApiUrl}/api-token-auth`, loginData)
                 .then( response => {
-                    console.log(response.data);
+                    dispatch({
+                        type: constants.loginActions.login,
+                        payload: {
+                            userData: {
+                                email: loginData.email,
+                                isChecked: loginData.isChecked
+                            },
+                            token: response.data.token
+                        }
+                    })
                 })
                 .catch( err => {
-                    console.log(err);
+                    if( err.response) {
+                        if(err.response.status === 404) {
+                            return dispatch({
+                                type: constants.loginActions.loginError,
+                                payload: {
+                                    errorText: constants.loginErrors.invalidData
+                                }
+                            });
+                        }
+                    }
+                    dispatch({
+                        type: constants.loginActions.loginError,
+                        payload: {
+                            errorText: constants.loginErrors.serverError
+                        }
+                    });
                 })
         }
-
-
-
+        dispatch({
+            type: constants.loginActions.loginError,
+            payload: {
+                errorText: constants.loginErrors.emptyData
+            }
+        })
     };
 };
 
@@ -71,14 +82,14 @@ const logout = () => {
 
     return dispatch => {
       dispatch({
-        type: 'LOGOUT'
+        type: constants.loginActions.logout
       });
     };
 };
 
 
-export const loginActions = {
-    checkToken: checkToken,
-    login: login,
-    logout: logout
-};
+export default {
+    checkToken,
+    login,
+    logout
+}

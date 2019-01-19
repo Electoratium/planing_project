@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PrivateRoute from './containers/PrivateRoute';
 
 import Header from './components/base/Header';
+import Footer from "./components/base/Footer";
 import Home from './components/pages/Home';
 import Planing from './components/pages/Planing';
 import Login from './components/pages/Login';
@@ -11,14 +12,25 @@ import SignUp from './components/pages/SignUp';
 import NotFound from './components/pages/NotFound';
 
 
-import {loginActions} from './actions/login';
+import loginActions from './actions/login';
 import history from './history/history';
+import {bindActionCreators} from "redux";
 
 
+
+import CustomSnackBar from './components/CustomSnackBar';
 
 class AppRouter extends Component {
+    showDangerBar() {
+        if(this.props.login.error) {
+            return (
+                <CustomSnackBar
+                    message={this.props.login.error}
+                />
+            );
+        }
+    }
     componentDidMount() {
-        // loginActions.checkToken();
         this.props.onCheckToken();
     }
 
@@ -27,9 +39,11 @@ class AppRouter extends Component {
             <Router history={history}>
                 <div className="container-fluid">
                     <Header />
+
+                    { this.showDangerBar()}
+
                     <Switch>
                         <Route path="/" exact component={Home} />
-                        {/*<Route path="/planing/" component={Planing} />*/}
                          <PrivateRoute path="/planing" component={Planing} />
                             {/*<PrivateRoute path="/finance" component={Finance} />*/}
                         <Route path="/login" component={Login} />
@@ -38,6 +52,7 @@ class AppRouter extends Component {
 
                         <Route component={NotFound} />
                     </Switch>
+                    <Footer/>
                 </div>
             </Router>
         );
@@ -50,9 +65,14 @@ function mapStateToProps(state) {
         login: state.login
     };
 }
-export default connect(mapStateToProps, dispatch => ({
-    onCheckToken: () => dispatch(loginActions.checkToken())
 
-}))(AppRouter);
+function matchDispatchToProps (dispatch) {
+    return bindActionCreators({
+        onCheckToken: () => loginActions.checkToken()
+    }, dispatch)
+}
 
-
+export default connect(
+    mapStateToProps,
+    matchDispatchToProps
+)(AppRouter);

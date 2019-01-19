@@ -9,7 +9,7 @@ import LoginField from '../../components/LoginField';
 import {bindActionCreators} from 'redux';
 
 
-import {loginActions} from '../../actions/login';
+import loginActions from '../../actions/login';
 
 
 
@@ -18,9 +18,9 @@ class LoginForm extends Component {
         email: '',
         password: ''
     }
+
     handleSubmit = (e)  => {
         e.preventDefault();
-
 
         const userData = {
             email: this.state.email,
@@ -50,7 +50,7 @@ class LoginForm extends Component {
 
 
     render() {
-        if(this.props.login.status === 'CONFIRM') {
+        if(this.props.login.email) {
             return <Redirect to="/planing" />
         }
         return (
@@ -98,10 +98,9 @@ function mapStateToProps(state) {
     };
 }
 
-
 function matchDispatchToProps (dispatch) {
     return bindActionCreators({
-        onLogin: loginData => dispatch(loginActions.login(loginData))
+        onLogin: loginData => loginActions.login(loginData),
     }, dispatch)
 }
 
