@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import ResponsiveDrawer from '../../components/CustomDrawer';
+
 
 
 class Planing extends Component {
@@ -11,9 +13,7 @@ class Planing extends Component {
 
     render() {
         return (
-            <div>
-                <p>Planing page</p>
-            </div>
+            <ResponsiveDrawer/>
         );
     }
 }
