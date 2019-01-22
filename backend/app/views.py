@@ -1,13 +1,16 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.status import (
+    HTTP_500_INTERNAL_SERVER_ERROR,
     HTTP_400_BAD_REQUEST,
     HTTP_404_NOT_FOUND,
     HTTP_200_OK
 )
+
 from rest_framework.response import Response
 
 from rest_framework.authtoken.models import Token
@@ -55,3 +58,23 @@ def login(request):
 def test(request):
     data = {'sample_data': 123}
     return Response(data, status=HTTP_200_OK)
+
+
+
+@csrf_exempt
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def createUser(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    if not email or not password:
+        return Response('Invalid credentials', status=HTTP_400_BAD_REQUEST)
+
+    try:
+        newUser = get_user_model().objects.create_user(email, password)
+        newUser.save()
+
+        return Response(status=HTTP_200_OK)
+    except:
+        return Response('Error on creating user', status=HTTP_500_INTERNAL_SERVER_ERROR)
