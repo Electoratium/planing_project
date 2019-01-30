@@ -21,3 +21,5 @@ package-lock.json
 /frontend/npm-debug.log*
 /frontend/yarn-debug.log*
 /frontend/yarn-error.log*
+
+/backend/app/__pycache__/

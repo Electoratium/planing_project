@@ -6,7 +6,7 @@ import PrivateRoute from './containers/PrivateRoute';
 import Header from './components/base/Header';
 import Footer from "./components/base/Footer";
 import Home from './components/pages/Home';
-import Planing from './components/pages/Planing';
+import Planing from './components/pages/planing/Planing';
 import Login from './components/pages/Login';
 import SignUp from './components/pages/SignUp';
 import NotFound from './components/pages/NotFound';

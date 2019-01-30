@@ -18,8 +18,46 @@ const loginActions = {
 };
 
 
+const planingTabsNames = [
+    {
+        name: 'Планування на день',
+        url: 'planing/day'
+    },
+    {
+        name: 'Планування на тиждень',
+        url: 'planing/week'
+    },
+    {
+        name: 'Планування на місяць',
+        url: 'planing/month'
+    },
+    {
+        name: 'Планування на рік',
+        url: 'planing/year'
+    },
+    {
+        name: 'Проектне планування',
+        url: 'planing/project'
+    },
+
+
+
+
+
+];
+
+const utilityTabs = [
+    {
+        name: 'Налаштування',
+        url: '/settings'
+    }
+];
+
+
 export default {
     baseApiUrl,
     loginActions,
-    loginErrors
+    loginErrors,
+    planingTabsNames,
+    utilityTabs
 }

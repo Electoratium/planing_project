@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ResponsiveDrawer from '../../components/CustomDrawer';
+import ResponsiveDrawer from '../../CustomDrawer';
 
 
 
