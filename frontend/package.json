@@ -11,11 +11,14 @@
     "classnames": "^2.2.6",
     "history": "^4.7.2",
     "material-ui": "^1.0.0-beta.47",
+    "prop-types": "^15.6.2",
     "react": "next",
     "react-dom": "next",
     "react-form-validator-core": "^0.5.1",
     "react-redux": "^6.0.0",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.2",
+    "react-vis": "^1.11.6",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.7",
     "redux-thunk": "^2.3.0"
@@ -24,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "./node_modules/.bin/eslint ./src/**/*.{js,jsx}",
+    "lint-fix": "./node_modules/.bin/eslint ./src/**/*.{js,jsx} --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,6 +42,11 @@
   ],
   "devDependencies": {
     "bootstrap": "^4.0.0-alpha.6",
-    "react-router-dom": "^4.3.1"
+    "eslint": "5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-react": "^7.12.4"
   }
 }

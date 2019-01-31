@@ -17,7 +17,7 @@ class LoginForm extends Component {
     state = {
         email: '',
         password: ''
-    }
+    };
 
     handleSubmit = (e)  => {
         e.preventDefault();
@@ -34,24 +34,24 @@ class LoginForm extends Component {
 
 
         // this.cleanLoginForm();
-    }
+    };
     onChangeInput = (e, name) => {
         const value = e.currentTarget.value;
         this.setState({[name]: value});
-   }
+   };
 
 
     cleanLoginForm = () => {
         this.emailInput.value = '';
         this.pswrdInput.value = '';
         this.isSaveLoginCheckbox.checked = false;
-    }
+    };
 
 
 
     render() {
         if(this.props.login.email) {
-            return <Redirect to="/planing" />
+            return <Redirect to="/planing/day" />
         }
         return (
             <ValidatorForm className="form-signin" onSubmit={this.handleSubmit} ref="form">
