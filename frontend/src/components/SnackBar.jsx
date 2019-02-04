@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
+import MaterialSnackbar from '@material-ui/core/Snackbar';
 
-class CustomSnackBar extends Component {
+class SnackBar extends Component {
     state = {
         open: true,
         position: {
@@ -16,7 +16,7 @@ class CustomSnackBar extends Component {
     render () {
         return (
             <div>
-              <Snackbar
+              <MaterialSnackbar
                 anchorOrigin={this.state.position}
                 open={this.state.open}
                 onClose={this.handleClose}
@@ -28,4 +28,4 @@ class CustomSnackBar extends Component {
     }
 
 }
-export default CustomSnackBar;
+export default SnackBar;

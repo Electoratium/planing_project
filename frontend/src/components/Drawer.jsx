@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
+// change to MaterialDrawer to ensure names conflict
+import MaterialDrawer from '@material-ui/core/Drawer';
+import AppBar from './AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -88,7 +89,7 @@ const styles = theme => ({
 	},
 });
 
-class MiniDrawer extends React.Component {
+class Drawer extends React.Component {
 	state = {
 		open: false,
 	};
@@ -102,34 +103,38 @@ class MiniDrawer extends React.Component {
 	};
 
 	render() {
-		const { classes, theme, ContentComponent} = this.props;
+		// ContentComponent
+		const { classes, theme, } = this.props;
 
 		return (
 			<div className={classes.root}>
 				<CssBaseline />
-				<AppBar
-					position="fixed"
-					className={classNames(classes.appBar, {
-						[classes.appBarShift]: this.state.open,
-					})}
-				>
-					<Toolbar disableGutters={!this.state.open}>
-						<IconButton
-							color="inherit"
-							aria-label="Open drawer"
-							onClick={this.handleDrawerOpen}
-							className={classNames(classes.menuButton, {
-								[classes.hide]: this.state.open,
-							})}
-						>
-							<MenuIcon />
-						</IconButton>
-						<Typography variant="h6" color="inherit" noWrap>
-							Mini variant drawer
-						</Typography>
-					</Toolbar>
-				</AppBar>
-				<Drawer
+				{/*<AppBar*/}
+					{/*position="fixed"*/}
+					{/*className={classNames(classes.appBar, {*/}
+						{/*[classes.appBarShift]: this.state.open,*/}
+					{/*})}*/}
+				{/*>*/}
+					{/*<Toolbar disableGutters={!this.state.open}>*/}
+						{/*<IconButton*/}
+							{/*color="inherit"*/}
+							{/*aria-label="Open drawer"*/}
+							{/*onClick={this.handleDrawerOpen}*/}
+							{/*className={classNames(classes.menuButton, {*/}
+								{/*[classes.hide]: this.state.open,*/}
+							{/*})}*/}
+						{/*>*/}
+							{/*<MenuIcon />*/}
+						{/*</IconButton>*/}
+						{/*<Typography variant="h6" color="inherit" noWrap>*/}
+							{/*Mini variant drawer*/}
+						{/*</Typography>*/}
+					{/*</Toolbar>*/}
+				{/*</AppBar>*/}
+
+
+				<AppBar />
+				<MaterialDrawer
 					variant="permanent"
 					className={classNames(classes.drawer, {
 						[classes.drawerOpen]: this.state.open,
@@ -174,11 +179,11 @@ class MiniDrawer extends React.Component {
 							</Link>
 						))}
 					</List>
-				</Drawer>
+				</MaterialDrawer>
 				<main className={classes.content}>
 					<div className={classes.toolbar} />
 
-					<ContentComponent />
+					{/*<ContentComponent />*/}
 
 				</main>
 			</div>
@@ -186,9 +191,9 @@ class MiniDrawer extends React.Component {
 	}
 }
 
-MiniDrawer.propTypes = {
-	classes: PropTypes.object.isRequired,
-	theme: PropTypes.object.isRequired,
-};
+// Drawer.propTypes = {
+// 	classes: PropTypes.object.isRequired,
+// 	theme: PropTypes.object.isRequired,
+// };
 
-export default withStyles(styles, { withTheme: true })(MiniDrawer);
+export default withStyles(styles, { withTheme: true })(Drawer);

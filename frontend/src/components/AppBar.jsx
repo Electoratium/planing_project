@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
+// change to MaterialDrawer to ensure names conflict
+import MaterialAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -15,6 +16,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import {bindActionCreators} from "redux";
 import loginActions from "../actions/login";
 import {connect} from "react-redux";
+import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 
 
@@ -22,6 +24,10 @@ import {Link} from "react-router-dom";
 
 
 const styles = theme => ({
+
+	deleteStyle: {
+		width: '40vw',
+	},
 	root: {
 		width: '100%',
 	},
@@ -52,7 +58,7 @@ const styles = theme => ({
 	},
 });
 
-class CustomAppBar extends Component {
+class AppBar extends Component {
 	state = {
 		anchorEl: null,
 		mobileMoreAnchorEl: null,
@@ -77,30 +83,36 @@ class CustomAppBar extends Component {
 
 
 	renderUser = () => {
+		const { classes } = this.props;
 		return this.props.login.email ?
 			(
-				<div className={classes.sectionDesktop}>
-							<IconButton color="inherit">
-								<Badge badgeContent={17} color="secondary">
-									<NotificationsIcon />
-								</Badge>
-							</IconButton>
-							<IconButton
-								aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-								aria-haspopup="true"
-								onClick={this.handleProfileMenuOpen}
-								color="inherit"
-							>
-								<AccountCircle />
-							</IconButton>
-						</div>
-						<div className={classes.sectionMobile}>
-							<IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
-								<MoreIcon />
-							</IconButton>
-						</div>
-			)
-	;
+				<Fragment>
+					<div className={classes.sectionDesktop}>
+						<IconButton color="inherit">
+							<Badge badgeContent={17} color="secondary">
+								<NotificationsIcon/>
+							</Badge>
+						</IconButton>
+						<IconButton
+							aria-owns={this.isMenuOpen ? 'material-appbar' : undefined}
+							aria-haspopup="true"
+							onClick={this.handleProfileMenuOpen}
+							color="inherit"
+						>
+							<AccountCircle/>
+						</IconButton>
+					</div>
+					<div className={classes.sectionMobile}>
+						<IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
+							<MoreIcon/>
+						</IconButton>
+					</div>
+				</Fragment>
+			) :
+			(
+				<Link to="/login">Login</Link>
+			);
+	};
 
 	render() {
 		const { anchorEl, mobileMoreAnchorEl } = this.state;
@@ -121,37 +133,36 @@ class CustomAppBar extends Component {
 		  </Menu>
 		);
 
-		const renderMobileMenu = (
-			<Menu
-				anchorEl={mobileMoreAnchorEl}
-				anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-				transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-				open={isMobileMenuOpen}
-				onClose={this.handleMobileMenuClose}
-			>
-				<MenuItem>
-					<IconButton color="inherit">
-						<Badge badgeContent={11} color="secondary">
-							<NotificationsIcon />
-						</Badge>
-					</IconButton>
-					<p>Notifications</p>
-				</MenuItem>
-				<MenuItem onClick={this.handleProfileMenuOpen}>
-					<IconButton color="inherit">
-						<AccountCircle />
-					</IconButton>
-					<p>Profile</p>
-				</MenuItem>
-			</Menu>
-
-		);
+		// const renderMobileMenu = (
+		// 	<Menu
+		// 		anchorEl={mobileMoreAnchorEl}
+		// 		anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+		// 		transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+		// 		open={isMobileMenuOpen}
+		// 		onClose={this.handleMobileMenuClose}
+		// 	>
+		// 		<MenuItem>
+		// 			<IconButton color="inherit">
+		// 				<Badge badgeContent={11} color="secondary">
+		// 					<NotificationsIcon />
+		// 				</Badge>
+		// 			</IconButton>
+		// 			<p>Notifications</p>
+		// 		</MenuItem>
+		// 		<MenuItem onClick={this.handleProfileMenuOpen}>
+		// 			<IconButton color="inherit">
+		// 				<AccountCircle />
+		// 			</IconButton>
+		// 			<p>Profile</p>
+		// 		</MenuItem>
+		// 	</Menu>
+		// );
 
 
 
 		return (
 			<div className={classes.root}>
-				<AppBar position="static">
+				<MaterialAppBar position="fixed">
 					<Toolbar>
 						<IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
 							<MenuIcon />
@@ -163,43 +174,49 @@ class CustomAppBar extends Component {
 						<div className={classes.grow} />
 
 
-									{/*if (this.props.login.email) {*/}
+				{/*if (this.props.login.email) {*/}
+					{/*return (*/}
+						{/*<li>*/}
+							{/*<Link to="/profile">{ this.props.login.email}</Link>*/}
+							{/*{' '}*/}
+							{/*<Link to="/" onClick={e => this.logout(e)}>Logout</Link>*/}
+
+
+							{/*{renderMobileMenu}*/}
+							{/*{renderMenu}*/}
+						{/*</li>*/}
+					{/*);*/}
+				{/*}*/}
 				{/*return (*/}
 					{/*<li>*/}
-						{/*<Link to="/profile">{ this.props.login.email}</Link>*/}
+						{/*<Link to="/login">Login</Link>*/}
 						{/*{' '}*/}
-						{/*<Link to="/" onClick={e => this.logout(e)}>Logout</Link>*/}
+						{/*<Link to="/sign-up">Sign Up</Link>*/}
 
 
 						{/*{renderMobileMenu}*/}
-						{/*{renderMenu}*/}
 					{/*</li>*/}
 				{/*);*/}
-			{/*}*/}
-			{/*return (*/}
-				{/*<li>*/}
-					{/*<Link to="/login">Login</Link>*/}
-					{/*{' '}*/}
-					{/*<Link to="/sign-up">Sign Up</Link>*/}
-
-
-					{/*{renderMobileMenu}*/}
-				{/*</li>*/}
-			{/*);*/}
-							{this.renderUser()}
+						<ul className={classes.deleteStyle}>
+							<li>
+								<Link to="/planing/day">Planing</Link>
+							</li>
+							<li>Finance</li>
+						</ul>
+						{this.renderUser()}
 					</Toolbar>
-				</AppBar>
+				</MaterialAppBar>
 
 
 
 				{renderMenu}
-				{renderMobileMenu}
+				{/*{renderMobileMenu}*/}
 			</div>
 		);
 	}
 }
 
-CustomAppBar.propTypes = {
+AppBar.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
@@ -220,6 +237,4 @@ function matchDispatchToProps(dispatch) {
 export default connect(
 	mapStateToProps,
 	matchDispatchToProps,
-)(withStyles(styles)(CustomAppBar));
-
-// export default withStyles(styles)(CustomAppBar);
+)(withStyles(styles)(AppBar));

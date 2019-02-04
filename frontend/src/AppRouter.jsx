@@ -9,8 +9,7 @@ import Footer from './components/base/Footer';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import SignUp from './components/pages/SignUp';
-import CustomSnackBar from './components/CustomSnackBar';
-import ResponsiveDrawer from './components/CustomDrawer';
+import SnackBar from './components/SnackBar';
 import Day from './containers/pages/planing/Day';
 import Week from './containers/pages/planing/Week';
 import Month from './containers/pages/planing/Month';
@@ -21,6 +20,7 @@ import loginActions from './actions/login';
 import history from './history/history';
 
 
+
 class AppRouter extends Component {
   componentWillMount() {
     this.props.onCheckToken();
@@ -29,7 +29,7 @@ class AppRouter extends Component {
   showDangerBar() {
     if (this.props.login.error) {
       return (
-        <CustomSnackBar
+        <SnackBar
           message={this.props.login.error}
         />
       );
@@ -45,65 +45,65 @@ class AppRouter extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
 
-            <PrivateRoute
-              exact
-              path="/planing"
-              component={
-                <Redirect to="/planing/day" />
-                                }
-            />
-            <PrivateRoute
-              path="/planing/day"
-              component={ResponsiveDrawer}
-              componentProps={
-                                    {
-                                      ContentComponent: Day,
-                                    }
-                                }
-            />
-            <PrivateRoute
-              path="/planing/week"
-              component={ResponsiveDrawer}
-              componentProps={
-                                    {
-                                      ContentComponent: Week,
-                                    }
-                                }
-            />
-            <PrivateRoute
-              path="/planing/month"
-              component={ResponsiveDrawer}
-              componentProps={
-                                    {
-                                      ContentComponent: Month,
-                                    }
-                                }
-            />
-            <PrivateRoute
-              path="/planing/year"
-              component={ResponsiveDrawer}
-              componentProps={
-                                    {
-                                      ContentComponent: Year,
-                                    }
-                                }
-            />
-            <PrivateRoute
-              path="/planing/projects"
-              component={ResponsiveDrawer}
-              componentProps={
-                                    {
-                                      ContentComponent: Projects,
-                                    }
-                                }
-            />
+            {/*<PrivateRoute*/}
+              {/*exact*/}
+              {/*path="/planing"*/}
+              {/*component={*/}
+                {/*<Redirect to="/planing/day" />*/}
+                                {/*}*/}
+            {/*/>*/}
+            {/*<PrivateRoute*/}
+              {/*path="/planing/day"*/}
+              {/*component={Drawer}*/}
+              {/*componentProps={*/}
+                                    {/*{*/}
+                                      {/*ContentComponent: Day,*/}
+                                    {/*}*/}
+                                {/*}*/}
+            {/*/>*/}
+            {/*<PrivateRoute*/}
+              {/*path="/planing/week"*/}
+              {/*component={Drawer}*/}
+              {/*componentProps={*/}
+                                    {/*{*/}
+                                      {/*ContentComponent: Week,*/}
+                                    {/*}*/}
+                                {/*}*/}
+            {/*/>*/}
+            {/*<PrivateRoute*/}
+              {/*path="/planing/month"*/}
+              {/*component={Drawer}*/}
+              {/*componentProps={*/}
+                                    {/*{*/}
+                                      {/*ContentComponent: Month,*/}
+                                    {/*}*/}
+                                {/*}*/}
+            {/*/>*/}
+            {/*<PrivateRoute*/}
+              {/*path="/planing/year"*/}
+              {/*component={Drawer}*/}
+              {/*componentProps={*/}
+                                    {/*{*/}
+                                      {/*ContentComponent: Year,*/}
+                                    {/*}*/}
+                                {/*}*/}
+            {/*/>*/}
+            {/*<PrivateRoute*/}
+              {/*path="/planing/projects"*/}
+              {/*component={Drawer}*/}
+              {/*componentProps={*/}
+                                    {/*{*/}
+                                      {/*ContentComponent: Projects,*/}
+                                    {/*}*/}
+                                {/*}*/}
+            {/*/>*/}
 
             <Route path="/login" component={Login} />
             <Route path="/sign-up" component={SignUp} />
 
             <Route component={NotFound} />
           </Switch>
-          <Footer />
+          {/*<Footer />*/}
         </div>
       </Router>
     );
