@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router';
-
-
 import { ValidatorForm } from 'react-form-validator-core';
 import LoginField from '../../components/LoginField';
 
@@ -83,7 +81,7 @@ class LoginForm extends Component {
 
                 <div className="checkbox mb-3">
                     <label>
-                        <input type="checkbox" value="remember-me" ref={ checkbox => this.isSaveLoginCheckbox = checkbox} /> Запомнить меня
+                        <input type="checkbox" ref={ checkbox => this.isSaveLoginCheckbox = checkbox} defaultChecked={true} /> Запомнить меня
                     </label>
                 </div>
                 <button className="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
