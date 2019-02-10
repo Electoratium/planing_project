@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import '../../../styles/Day.css';
+import TaskTable from '../TaskTable';
 
 class Day extends Component {
   render() {
     return (
-      <section className="container">
+      <section>
         <div className="row">
-          <div className="col-lg-6">
-            Chart goes here
+          <div className="col-xs-12 col-lg-6">
 
           </div>
-          <div className="col-lg-6">
-
-            {/* <TaskTable /> */}
-
+          <div className="col-xs-12 col-lg-6">
+             <TaskTable />
           </div>
         </div>
       </section>
