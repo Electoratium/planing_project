@@ -1,39 +1,42 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import '../../../styles/Day.css';
+import { connect } from 'react-redux';
+import { fetchDay } from '../../../actions/planing';
+import TaskTable from '../TaskTable';
 
 class Day extends Component {
-  render() {
-    return (
-      <section className="container">
-        <div className="row">
-          <div className="col-lg-6">
-            Chart goes here
+	componentWillMount() {
+		this.props.fetchDay();
+	}
+	render() {
+		return (
+			<section>
+				<div className="row">
+					<div className="col-xs-12 col-lg-6">
 
-          </div>
-          <div className="col-lg-6">
-
-            {/* <TaskTable /> */}
-
-          </div>
-        </div>
-      </section>
-    );
-  }
+					</div>
+					<div className="col-xs-12 col-lg-6">
+						<TaskTable />
+					</div>
+				</div>
+			</section>
+		);
+	}
 }
 
 
 function mapStateToProps(state) {
-  return {};
+	return {
+		planing: state.planing
+	}
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-  }, dispatch);
+	return bindActionCreators({
+		fetchDay
+	}, dispatch);
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+	mapStateToProps,
+	mapDispatchToProps,
 )(Day);

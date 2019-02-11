@@ -43,15 +43,12 @@ def login(request):
     email = request.data.get("email")
     password = request.data.get("password")
     if email is None or password is None:
-        return Response({'error': 'Please provide both username and password'},
-                        status=HTTP_400_BAD_REQUEST)
+        return Response({'error': 'Please provide both username and password'}, status=HTTP_400_BAD_REQUEST)
     user = authenticate(email=email, password=password)
     if not user:
-        return Response({'error': 'Invalid Credentials'},
-                        status=HTTP_404_NOT_FOUND)
+        return Response({'error': 'Invalid Credentials'}, status=HTTP_404_NOT_FOUND)
     token, _ = Token.objects.get_or_create(user=user)
-    return Response({'token': token.key},
-                    status=HTTP_200_OK)
+    return Response({'token': token.key}, status=HTTP_200_OK)
 
 @csrf_exempt
 @api_view(["GET"])
@@ -59,7 +56,11 @@ def test(request):
     data = {'sample_data': 123}
     return Response(data, status=HTTP_200_OK)
 
-
+@csrf_exempt
+@api_view(["GET"])
+def fetchDay(request):
+    data = {'sample_data': 123}
+    return Response(data, status=HTTP_200_OK)
 
 @csrf_exempt
 @api_view(['POST'])

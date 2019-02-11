@@ -1,8 +1,27 @@
 from django.contrib import admin
 from .models import User as CustomUser
-# from django.contrib.auth.models import User
+from .models import PlaningDay
+from .models import TaskPriorities
 
-from django.conf import settings
+
+
+class TaskPrioritiesAdmin(admin.ModelAdmin):
+	list_display = ['pk', 'name', 'order']
+	ordering = ['order']
+	class Meta:
+		model = TaskPriorities
+
+admin.site.register(TaskPriorities, TaskPrioritiesAdmin)
+
+
+class PlaningDayAdmin(admin.ModelAdmin):
+	list_display = [field.name for field in PlaningDay._meta.get_fields()]
+
+	class Meta:
+		model = PlaningDay
+
+admin.site.register(PlaningDay, PlaningDayAdmin)
+
 
 class CustomUserAdmin(admin.ModelAdmin):
 	list_display = ['pk', 'email']

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router';
-
-
 import { ValidatorForm } from 'react-form-validator-core';
 import LoginField from '../../components/LoginField';
 
@@ -14,97 +12,97 @@ import loginActions from '../../actions/login';
 
 
 class LoginForm extends Component {
-    state = {
-        email: '',
-        password: ''
-    };
+	state = {
+		email: '',
+		password: ''
+	};
 
-    handleSubmit = (e)  => {
-        e.preventDefault();
+	handleSubmit = (e)  => {
+		e.preventDefault();
 
-        const userData = {
-            email: this.state.email,
-            password: this.state.password,
-            isChecked: this.isSaveLoginCheckbox.checked
-        };
-
-
-        this.props.onLogin(userData);
+		const userData = {
+			email: this.state.email,
+			password: this.state.password,
+			isChecked: this.isSaveLoginCheckbox.checked
+		};
 
 
-
-        // this.cleanLoginForm();
-    };
-    onChangeInput = (e, name) => {
-        const value = e.currentTarget.value;
-        this.setState({[name]: value});
-   };
-
-
-    cleanLoginForm = () => {
-        this.emailInput.value = '';
-        this.pswrdInput.value = '';
-        this.isSaveLoginCheckbox.checked = false;
-    };
+		this.props.onLogin(userData);
 
 
 
-    render() {
-        if(this.props.login.email) {
-            return <Redirect to="/planing/day" />
-        }
-        return (
-            <ValidatorForm className="form-signin" onSubmit={this.handleSubmit} ref="form">
-                <div className="text-center mb-4">
-                    <h1 className="h3 mb-3 font-weight-normal">Вход</h1>
-                </div>
+		// this.cleanLoginForm();
+	};
+	onChangeInput = (e, name) => {
+		const value = e.currentTarget.value;
+		this.setState({[name]: value});
+	};
 
-                <LoginField
-                    inputId="inputEmail"
-                    type="email"
-                    name="email"
-                    value={this.state.email}
-                    onChange={event => this.onChangeInput(event, 'email')}
-                    validators={['required', 'isEmail', 'maxStringLength: 45']}
-                    errorMessages={['Это обязательное поле', 'Необходимо ввести email', 'Максимальная длинна email - 45 символов']}
-                    labelText="Email *"
-                />
 
-                <LoginField
-                    inputId="inputPassword"
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={event => this.onChangeInput(event, 'password')}
-                    validators={['required', 'minStringLength:6', 'maxStringLength: 30']}
-                    errorMessages={['Это обязательное поле', 'Необходимо минимум 6 символов', 'Максимальная длинна пароля - 30']}
-                    labelText="Пароль *"
-                />
+	cleanLoginForm = () => {
+		this.emailInput.value = '';
+		this.pswrdInput.value = '';
+		this.isSaveLoginCheckbox.checked = false;
+	};
 
-                <div className="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me" ref={ checkbox => this.isSaveLoginCheckbox = checkbox} /> Запомнить меня
-                    </label>
-                </div>
-                <button className="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-            </ValidatorForm>
-        );
-    }
+
+
+	render() {
+		if(this.props.login.email) {
+			return <Redirect to="/planing/day" />
+		}
+		return (
+			<ValidatorForm className="form-signin" onSubmit={this.handleSubmit} ref="form">
+				<div className="text-center mb-4">
+					<h1 className="h3 mb-3 font-weight-normal">Вход</h1>
+				</div>
+
+				<LoginField
+					inputId="inputEmail"
+					type="email"
+					name="email"
+					value={this.state.email}
+					onChange={event => this.onChangeInput(event, 'email')}
+					validators={['required', 'isEmail', 'maxStringLength: 45']}
+					errorMessages={['Это обязательное поле', 'Необходимо ввести email', 'Максимальная длинна email - 45 символов']}
+					labelText="Email *"
+				/>
+
+				<LoginField
+					inputId="inputPassword"
+					type="password"
+					name="password"
+					value={this.state.password}
+					onChange={event => this.onChangeInput(event, 'password')}
+					validators={['required', 'minStringLength:6', 'maxStringLength: 30']}
+					errorMessages={['Это обязательное поле', 'Необходимо минимум 6 символов', 'Максимальная длинна пароля - 30']}
+					labelText="Пароль *"
+				/>
+
+				<div className="checkbox mb-3">
+					<label>
+						<input type="checkbox" ref={ checkbox => this.isSaveLoginCheckbox = checkbox} defaultChecked={true} /> Запомнить меня
+					</label>
+				</div>
+				<button className="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+			</ValidatorForm>
+		);
+	}
 }
 
 function mapStateToProps(state) {
-    return {
-        login: state.login
-    };
+	return {
+		login: state.login
+	};
 }
 
 function matchDispatchToProps (dispatch) {
-    return bindActionCreators({
-        onLogin: loginData => loginActions.login(loginData),
-    }, dispatch)
+	return bindActionCreators({
+		onLogin: loginData => loginActions.login(loginData),
+	}, dispatch)
 }
 
 export default connect(
-    mapStateToProps,
-    matchDispatchToProps
+	mapStateToProps,
+	matchDispatchToProps
 )(LoginForm);

@@ -6,5 +6,6 @@ urlpatterns = [
     path('create-user', createUser, name='create-user'),
     path('check-token', checkToken, name='check-token'),
     path('api-token-auth', login, name='login'),
+    path('planing/day', fetchDay, name='fetchDay'),
     path('test', test, name='test')
 ]
