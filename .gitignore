@@ -22,4 +22,4 @@ package-lock.json
 /frontend/yarn-debug.log*
 /frontend/yarn-error.log*
 
-/backend/app/__pycache__/
+/backend/**/__pycache__
