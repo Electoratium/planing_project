@@ -7,6 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add'
 
 const CustomTableCell = withStyles(theme => ({
 	head: {
@@ -31,6 +33,9 @@ const styles = theme => ({
 		'&:nth-of-type(odd)': {
 			backgroundColor: theme.palette.background.default,
 		},
+	},
+	fab: {
+		margin: theme.spacing.unit,
 	},
 });
 
@@ -73,6 +78,13 @@ function TaskTable(props) {
 							<CustomTableCell align="right">{row.priority}</CustomTableCell>
 						</TableRow>
 					))}
+					<TableRow className={classes.row}>
+						<CustomTableCell>
+							<Fab color="primary" aria-label="Add" className={classes.fab}>
+								<AddIcon />
+							</Fab>
+						</CustomTableCell>
+					</TableRow>
 				</TableBody>
 			</Table>
 		</Paper>
