@@ -43,16 +43,18 @@ class User(AbstractBaseUser, PermissionsMixin):
 class TaskPriorities(models.Model):
 	name = models.CharField('Приоритет', max_length=128)
 	order = models.IntegerField('Порядок', unique=True)
-	# test = TestManager()
 
+	# test = TestManager()
 	class Meta:
 		verbose_name = 'Приоритет'
 		verbose_name_plural = 'Приоритеты'
 
+		ordering = ['order']
+
 	def __str__(self):
 		return self.name
 
-class PlaningDay(models.Model):
+class DayTasks(models.Model):
 	taskName = models.CharField('Задача', max_length=200)
 	expirationTime = models.DateTimeField('Время задачи', auto_now_add=False ,auto_now=False)
 	priority = models.ForeignKey(TaskPriorities, verbose_name='Приоритет', null=False, on_delete=models.SET_DEFAULT, default=1)

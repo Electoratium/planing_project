@@ -1,13 +1,12 @@
 from django.contrib import admin
 from .models import User as CustomUser
-from .models import PlaningDay
+from .models import DayTasks
 from .models import TaskPriorities
 
 
 
 class TaskPrioritiesAdmin(admin.ModelAdmin):
 	list_display = ['pk', 'name', 'order']
-	ordering = ['order']
 	class Meta:
 		model = TaskPriorities
 
@@ -15,12 +14,12 @@ admin.site.register(TaskPriorities, TaskPrioritiesAdmin)
 
 
 class PlaningDayAdmin(admin.ModelAdmin):
-	list_display = [field.name for field in PlaningDay._meta.get_fields()]
+	list_display = [field.name for field in DayTasks._meta.get_fields()]
 
 	class Meta:
-		model = PlaningDay
+		model = DayTasks
 
-admin.site.register(PlaningDay, PlaningDayAdmin)
+admin.site.register(DayTasks, PlaningDayAdmin)
 
 
 class CustomUserAdmin(admin.ModelAdmin):

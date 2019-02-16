@@ -9,6 +9,8 @@ from rest_framework.status import (
 	HTTP_400_BAD_REQUEST,
 	HTTP_404_NOT_FOUND,
 	HTTP_422_UNPROCESSABLE_ENTITY,
+	HTTP_204_NO_CONTENT,
+	HTTP_201_CREATED,
 	HTTP_200_OK
 )
 from . import models
@@ -19,8 +21,9 @@ from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
 
 
-from django.core import serializers
-
+from . import serializers
+from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
 
 
 @csrf_exempt
@@ -54,28 +57,66 @@ def login(request):
 	return Response({'token': token.key}, status=HTTP_200_OK)
 
 @csrf_exempt
-@api_view(["GET"])
+@api_view(['GET', 'POST'])
 
 # DELETE IT!!!!!
 @permission_classes((AllowAny,))
-def get_day_tasks(request):
-	user_id = request.POST['user_id']
+def day_tasks_list(request, format=None):
+	if request.method == 'GET':
+		user_id = request.POST['user_id']
 
-	if not user_id:
-		return Response(status=HTTP_422_UNPROCESSABLE_ENTITY)
+		if not user_id:
+			return Response(status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+		user_tasks = models.DayTasks.objects.all().filter(owner__id=user_id).only('taskName', 'expirationTime', 'priority__name')
+		serializer = serializers.DayTasksSerializer(user_tasks, many=True)
+
+		return Response(serializer.data)
+
+	elif request.method == 'POST':
+		data = JSONParser().parse(request)
+		serializer = serializers.DayTasksSerializer(data=data)
+
+		if serializer.is_valid():
+			serializer.save()
+
+			return Response(serializer.data, status=HTTP_201_CREATED)
+		return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
 
 	# filter('owner', userId).all()
-	user_tasks = models.PlaningDay.objects.all().filter(owner__id=user_id).only('taskName', 'expirationTime', 'priority__name')
-
-	user_tasks_json = serializers.serialize('json', user_tasks)
-
-	return Response(user_tasks_json, status=HTTP_200_OK)
 
 
 
 
+	# return Response(user_tasks_json, status=HTTP_200_OK)
 
 
+
+@csrf_exempt
+@api_view(['GET', 'POST', 'DELETE'])
+@permission_classes((AllowAny, ))
+def day_task_detail(request, pk, format=None):
+	try:
+		task = models.DayTasks.objects.get(pk=pk)
+	except models.DayTasks.DoesNotExist:
+		return Response(status=HTTP_404_NOT_FOUND)
+
+	if request.method == 'GET':
+		serializer = serializers.DayTasksSerializer(task)
+		return Response(serializer.data)
+
+	elif request.method == 'PUT':
+		data = JSONParser().parse(request)
+		serializer = serializers.DayTasksSerializer(task, data=data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+	elif request.method == 'DELETE':
+		task.delete()
+		return Response(status=HTTP_204_NO_CONTENT)
 
 
 @csrf_exempt
