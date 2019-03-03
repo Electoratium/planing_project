@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ValidatorForm } from 'react-form-validator-core';
 import LoginField from '../../components/LoginField';
+import InputValidate from "../../components/InputValidate";
 // import { ValidatorForm } from 'react-form-validator-core';
 // import InputValidate from '../../components/InputValidate';
 
@@ -13,14 +14,31 @@ class SignUpForm extends Component {
     repeatPassword: ''
   };
 
-  onChangeInput = (e, name) => {
+  handleChange = (e, name) => {
     const value = e.currentTarget.value;
-    this.setState({[name]: value})
+    this.setState({[name]: value});
   };
 
   handleSubmit = () => {
     console.log('pres button submit');
   };
+
+  componentDidMount() {
+    // custom rule
+    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+      if (value !== this.state.password) {
+        return false;
+      }
+      return true;
+    });
+
+    /*ValidatorForm.addValidationRule('isRepeatPasswordMatch',(value) => {
+      if(value !== this.state.repeatPassword) {
+        return false;
+      }
+      return true;
+    });*/
+  }
 
   render() {
     return (
@@ -37,21 +55,21 @@ class SignUpForm extends Component {
           <div className="col">
             <ValidatorForm className="form-signin" onSubmit={this.handleSubmit} ref="form">
               <LoginField
-                inputId="inputName"
+                inputId="inputFirstName"
                 type="text"
                 name="firstName"
                 value={this.state.firstName}
-                onChange={event => this.onChangeInput(event, 'firstName')}
+                onChange={event => this.handleChange(event, 'firstName')}
                 validators={['required', 'isString', 'minStringLength: 3', 'maxStringLength: 45', 'trim']}
                 errorMessages={['This field is required', 'Must be string', 'Min length 3', 'Max length 45']}
                 labelText="First name *"
               />
               <LoginField
-                inputId="inputSurname"
+                inputId="inputLastName"
                 type="text"
                 name="lastName"
                 value={this.state.lastName}
-                onChange={event => this.onChangeInput(event, 'lastName')}
+                onChange={event => this.handleChange(event, 'lastName')}
                 validators={['required', 'isString', 'minStringLength: 3', 'maxStringLength: 45',  'trim']}
                 errorMessages={['This field is required', 'Must be string', 'Min length 3', 'Max length 45']}
                 labelText="Last name *"
@@ -61,7 +79,7 @@ class SignUpForm extends Component {
                 type="email"
                 name="email"
                 value={this.state.email}
-                onChange={event => this.onChangeInput(event, 'email')}
+                onChange={event => this.handleChange(event, 'email')}
                 validators={['required', 'isEmail', 'maxStringLength: 45']}
                 errorMessages={['This field is required', 'Email required', 'Maximum password length - 45']}
                 labelText="Email *"
@@ -72,7 +90,7 @@ class SignUpForm extends Component {
                 type="password"
                 name="password"
                 value={this.state.password}
-                onChange={event => this.onChangeInput(event, 'password')}
+                onChange={event => this.handleChange(event, 'password')}
                 validators={['required', 'minStringLength:6', 'maxStringLength: 30']}
                 errorMessages={[
                   'This field is required',
@@ -87,10 +105,11 @@ class SignUpForm extends Component {
                 type="password"
                 name="repeatPassword"
                 value={this.state.repeatPassword}
-                onChange={event => this.onChangeInput(event, 'repeatPassword')}
-                validators={['required', 'minStringLength:6', 'maxStringLength: 30']}
+                onChange={event => this.handleChange(event, 'repeatPassword')}
+                validators={['required', 'isPasswordMatch', 'minStringLength:6', 'maxStringLength: 30']}
                 errorMessages={[
                   'This field is required',
+                  'Passwords don`t match',
                   'At least 6 characters required',
                   'Maximum password length - 30'
                 ]}
