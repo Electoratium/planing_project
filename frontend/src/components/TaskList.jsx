@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add'
+import AddIcon from '@material-ui/icons/Add';
 
 const CustomTableCell = withStyles(theme => ({
 	head: {
@@ -39,24 +39,53 @@ const styles = theme => ({
 	},
 });
 
-let id = 0;
-function createData(time, name, priority) {
-	id += 1;
-	return { id, time, name, priority};
+
+// let id = 0;
+// function createData(time, name, priority) {
+//   id += 1;
+//   return {
+//     id, time, name, priority,
+//   };
+// }
+//
+// const rows =
+//
+//     [
+//   createData('Frozen yoghurt', 159, 6.0),
+//   createData('Ice cream sandwich', 237, 9.0),
+//   createData('Eclair', 262, 16.0),
+//   createData('Cupcake', 305, 3.7),
+//   createData('Gingerbread', 356, 16.0),
+//   createData('Gingerbread', 356, 16.0),
+//   createData('Gingerbread', 356, 16.0),
+// ];
+
+
+function taskRows(classes, tasks) {
+	if(tasks) {
+		return tasks.map( (task) => {
+			return (
+				<TableRow className={classes.row} key={task.id}>
+					<CustomTableCell component="th" scope="row">
+						{task.expirationTime}
+					</CustomTableCell>
+					<CustomTableCell align="right">{task.taskName}</CustomTableCell>
+					<CustomTableCell align="right">{task.priority}</CustomTableCell>
+				</TableRow>
+			);
+		})
+	}
+	return (
+			<TableRow className={classes.row}>
+							<CustomTableCell component="th" scope="row" align="center">
+								Task are not available!
+							</CustomTableCell>
+						</TableRow>
+		);
 }
 
-const rows = [
-	createData('Frozen yoghurt', 159, 6.0),
-	createData('Ice cream sandwich', 237, 9.0),
-	createData('Eclair', 262, 16.0),
-	createData('Cupcake', 305, 3.7),
-	createData('Gingerbread', 356, 16.0),
-	createData('Gingerbread', 356, 16.0),
-	createData('Gingerbread', 356, 16.0)
-];
-
-function TaskTable(props) {
-	const { classes } = props;
+function TaskList(props) {
+	const { classes, tasks } = props;
 
 	return (
 		<Paper className={classes.root}>
@@ -69,15 +98,7 @@ function TaskTable(props) {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{rows.map(row => (
-						<TableRow className={classes.row} key={row.id}>
-							<CustomTableCell component="th" scope="row">
-								{row.time}
-							</CustomTableCell>
-							<CustomTableCell align="right">{row.name}</CustomTableCell>
-							<CustomTableCell align="right">{row.priority}</CustomTableCell>
-						</TableRow>
-					))}
+					{ taskRows(classes, tasks) }
 					<TableRow className={classes.row}>
 						<CustomTableCell>
 							<Fab color="primary" aria-label="Add" className={classes.fab}>
@@ -91,8 +112,8 @@ function TaskTable(props) {
 	);
 }
 
-TaskTable.propTypes = {
+TaskList.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TaskTable);
+export default withStyles(styles)(TaskList);

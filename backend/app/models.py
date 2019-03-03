@@ -57,7 +57,7 @@ class TaskPriorities(models.Model):
 class DayTasks(models.Model):
 	taskName = models.CharField('Задача', max_length=200)
 	expirationTime = models.DateTimeField('Время задачи', auto_now_add=False ,auto_now=False)
-	priority = models.ForeignKey(TaskPriorities, verbose_name='Приоритет', null=False, on_delete=models.SET_DEFAULT, default=1)
+	priority = models.ForeignKey(TaskPriorities, verbose_name='Приоритет', related_name='priority', null=False, on_delete=models.SET_DEFAULT, default=1)
 	owner = models.ForeignKey(User, verbose_name='Пользователь', null=False, on_delete=models.CASCADE)
 
 	class Meta:

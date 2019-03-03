@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchDay } from '../../../actions/planing';
-import TaskTable from '../TaskTable';
+import TaskList from '../../../components/TaskList';
 
 class Day extends Component {
 	componentWillMount() {
-		this.props.fetchDay();
+		const {userId} = this.props.login;
+		this.props.fetchDay(userId);
 	}
 	render() {
+		let {tasks} = this.props.planing;
 		return (
 			<section>
 				<div className="row">
+					<div className="col-xs-12 col-lg-6" />
 					<div className="col-xs-12 col-lg-6">
-
-					</div>
-					<div className="col-xs-12 col-lg-6">
-						<TaskTable />
+						<TaskList tasks={tasks}/>
 					</div>
 				</div>
 			</section>
@@ -27,12 +27,13 @@ class Day extends Component {
 
 function mapStateToProps(state) {
 	return {
-		planing: state.planing
-	}
+		login: state.login,
+		planing: state.planing,
+	};
 }
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-		fetchDay
+		fetchDay: (userId) => fetchDay(userId),
 	}, dispatch);
 }
 
