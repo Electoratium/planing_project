@@ -18,6 +18,7 @@ const checkToken = () => (dispatch) => {
       })
       .catch(() => {
         cookies.delete('token', '/');
+        cookies.delete('id', '/');
         cookies.delete('email', '/');
       });
   }
@@ -33,10 +34,12 @@ const login = loginData => (dispatch) => {
   if (loginData) {
     return Axios.post(`${constants.baseApiUrl}/api-token-auth`, loginData)
       .then((response) => {
+
         dispatch({
           type: constants.loginActions.login,
           payload: {
             userData: {
+              userId: response.data.user_id,
               email: loginData.email,
               isChecked: loginData.isChecked,
             },
