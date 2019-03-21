@@ -96,8 +96,8 @@ DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
 		'NAME': 'planing_db',
-		'USER': 'planing_admin',
-		'PASSWORD': 'planing_admin',
+		'USER': 'postgres',
+		'PASSWORD': 'WSADqezc1234',
 		'HOST': 'localhost',
 		'PORT': '',
 	}
