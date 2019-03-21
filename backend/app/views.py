@@ -20,21 +20,22 @@ from rest_framework.status import (
 from rest_framework import permissions
 from rest_framework.response import Response
 
+# Зачем это нужно если можно чекать токен непосредственно при подгрузке
 
-@csrf_exempt
-@api_view(["POST"])
-@permission_classes((AllowAny,))
-def checkToken(request):
-	userToken = request.data.get("token")
-
-	userData = get_object_or_404(Token, key=userToken)
-
-	response = {
-		# 'userId': userData.user.pk,
-		'email': userData.user.email,
-	}
-
-	return Response(response, status=HTTP_200_OK)
+# @csrf_exempt
+# @api_view(["POST"])
+# @permission_classes((AllowAny,))
+# def checkToken(request):
+# 	userToken = request.data.get("token")
+#
+# 	userData = get_object_or_404(Token, key=userToken)
+#
+# 	response = {
+# 		# 'userId': userData.user.pk,
+# 		'email': userData.user.email,
+# 	}
+#
+# 	return Response(response, status=HTTP_200_OK)
 
 
 @csrf_exempt
@@ -49,24 +50,28 @@ def login(request):
 	if not user:
 		return Response({'error': 'Invalid Credentials'}, status=HTTP_404_NOT_FOUND)
 	token, _ = Token.objects.get_or_create(user=user)
-	return Response({'token': token.key}, status=HTTP_200_OK)
+
+
+	return Response({'token': token.key, 'user_id': user.id}, status=HTTP_200_OK)
 
 class DayTaskList(APIView):
 	permission_classes = [permissions.AllowAny]
 
 	def get(self, request, format=None):
-		user_id = request.GET.get['user_id']
+		user_id = request.GET.get('user_id')
 		if not user_id:
 			return Response(status=HTTP_422_UNPROCESSABLE_ENTITY)
 		user_tasks = models.DayTasks.objects.all().filter(owner__id=user_id).only('taskName', 'expirationTime', 'priority__name')
 		serializer = serializers.DayTasksSerializer(user_tasks, many=True)
+		print(serializer.data)
+
+
 		return Response(serializer.data)
 
 	def post(self, request, format=None):
 		serializer = serializers.DayTasksSerializer(request.data)
 		if serializer.is_valid():
 			serializer.save()
-
 			return Response({'data':serializer.data}, status=HTTP_201_CREATED)
 		return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 

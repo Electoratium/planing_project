@@ -1,5 +1,6 @@
 /.idea
 /backend/.idea
+/frontend/.idea
 package-lock.json
 
 # dependencies

@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
+import SignUpForm from '../../containers/pages/SignUpForm'
 class SignUp extends Component {
-    state = {
+	state = {
 
-    };
-    customFunc = event => {
+	};
+	customFunc = event => {
 
-    };
-
-    render() {
-        return (
-            <div>
-                <p>Sign up page</p>
-            </div>
-        );
-    }
+	};
+	render() {
+		return (
+			<div>
+				<h1 className = "text-center">Sign up</h1>
+				<SignUpForm />
+			</div>
+		);
+	}
 }
 
 export default SignUp;
-

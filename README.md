@@ -1,17 +1,17 @@
-# How to run project #
+# How to run project
 
-## Requirements ##
+## Requirements
 
-python3, pip3 nodejs
+python3, pip3, nodejs
 
-## Frontend ##
+## Frontend
     1. cd frontend
     2. npm install
     3. npm start
-## Backend ##
+## Backend
     1. Open second console
     2. cd backend
     3. pip3 install -r requirements.txt
-    4. cd app && python3 managers.py migrate
-    5. python3 manage.py runserver
+    6. python3 manage.py migrate
+    7. python3 manage.py runserver
      

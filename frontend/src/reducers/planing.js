@@ -1,5 +1,8 @@
 import { FETCH_DAY } from '../actions/planing';
+<<<<<<< HEAD
 import constants from '../modules/constants';
+=======
+>>>>>>> 9ac2862d84c98d2181c2b0d28f754122f33114f4
 
 const initialState = {
   dayPlanning: [],
@@ -7,6 +10,7 @@ const initialState = {
 
 export default function planingReducer(state = initialState, action) {
   switch (action.type) {
+<<<<<<< HEAD
     // case FETCH_DAY:
     //   return {
     //     ...state,
@@ -19,5 +23,16 @@ export default function planingReducer(state = initialState, action) {
       };
     default:
       return state;
+=======
+    case FETCH_DAY:
+      return {
+        ...state,
+        tasks: action.payload
+      };
+    default:
+      return {
+        ...state,
+      };
+>>>>>>> 9ac2862d84c98d2181c2b0d28f754122f33114f4
   }
 }

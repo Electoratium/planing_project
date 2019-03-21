@@ -3,10 +3,9 @@ import { cookies } from '../modules/manageCookies';
 
 const initialState = {};
 
-export default function loginReducer(state, action) {
+export default function loginReducer(state = initialState, action) {
   switch (action.type) {
     case constants.loginActions.checkToken:
-
 
       return {
         ...state,
@@ -14,15 +13,14 @@ export default function loginReducer(state, action) {
 
       };
     case constants.loginActions.login:
-
       if (action.payload.userData.isChecked) {
         cookies.set('token', action.payload.token, 5);
+        cookies.set('user_id', action.payload.userData.id, 5);
         cookies.set('email', action.payload.userData.email, 5);
       }
-
       return {
         ...state,
-        email: action.payload.userData.email,
+        ...action.payload.userData,
         authToken: action.payload.token,
       };
 
@@ -32,6 +30,7 @@ export default function loginReducer(state, action) {
         error: action.payload.errorText,
       };
     case constants.loginActions.logout:
+      cookies.delete('user_id', '/');
       cookies.delete('email', '/');
       cookies.delete('token', '/');
 
@@ -41,6 +40,8 @@ export default function loginReducer(state, action) {
         authToken: null,
       };
     default:
-      return initialState;
+      return {
+        ...state,
+      };
   }
 }
