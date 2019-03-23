@@ -1,6 +1,10 @@
 import { FETCH_DAY } from '../actions/planing';
+import constants from '../modules/constants';
 
-const initialState = {};
+
+const initialState = {
+  dayPlanning: [],
+};
 
 export default function planingReducer(state = initialState, action) {
   switch (action.type) {

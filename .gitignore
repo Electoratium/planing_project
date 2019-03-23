@@ -24,3 +24,5 @@ package-lock.json
 /frontend/yarn-error.log*
 
 **/__pycache__/
+
+/backend/backend/settings.py

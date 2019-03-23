@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchDay } from '../../../actions/planing';
 import TaskList from '../../../components/TaskList';
+
 
 class Day extends Component {
 
 	constructor(props) {
 		super(props);
 
+		const {login, fetchDay} = this.props;
+		const {userId} = login;
 
+		fetchDay(userId);
 
 		//тут все запросы А НЕ В COMPONENTWILLMOUNT
-	}
-
-
-
-
-
-
-	componentWillMount() {
-		const {userId} = this.props.login;
-		this.props.fetchDay(userId);
 	}
 	render() {
 		let {tasks} = this.props.planing;
@@ -38,6 +33,12 @@ class Day extends Component {
 	}
 }
 
+Day.propTypes = {
+  fetchDay: PropTypes.func,
+  planing: PropTypes.object,
+};
+
+
 function mapStateToProps(state) {
 	return {
 		login: state.login,
@@ -51,6 +52,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(Day);

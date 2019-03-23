@@ -9,6 +9,9 @@ const loginErrors = {
   invalidData: 'Даного облікового запису не існує',
 };
 
+const plainningStatus = {
+  dayLoaded: 'DAY_LOADED',
+};
 
 const loginActions = {
   checkToken: 'CHECK_TOKEN',
@@ -16,7 +19,6 @@ const loginActions = {
   logout: 'LOGOUT',
   loginError: 'LOGIN_ERROR',
 };
-
 
 const planingTabs = [
   {
@@ -54,4 +56,5 @@ export default {
   loginErrors,
   planingTabs,
   utilityTabs,
+  plainningStatus,
 };
