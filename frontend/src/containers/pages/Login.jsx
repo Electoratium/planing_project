@@ -48,9 +48,6 @@ class LoginForm extends Component {
 
 
 	render() {
-		if(this.props.login.email) {
-			return <Redirect to="/planing/day" />
-		}
 		return (
 			<ValidatorForm className="form-signin" onSubmit={this.handleSubmit} ref="form">
 				<div className="text-center mb-4">

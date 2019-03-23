@@ -10,13 +10,10 @@ class Day extends Component {
 
 	constructor(props) {
 		super(props);
-
 		const {login, fetchDay} = this.props;
 		const {userId} = login;
 
 		fetchDay(userId);
-
-		//тут все запросы А НЕ В COMPONENTWILLMOUNT
 	}
 	render() {
 		let {tasks} = this.props.planing;

@@ -10,7 +10,6 @@ export default function loginReducer(state = initialState, action) {
       return {
         ...state,
         ...action.payload,
-
       };
     case constants.loginActions.login:
       if (action.payload.userData.isChecked) {

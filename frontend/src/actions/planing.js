@@ -30,7 +30,7 @@ const dayListTestArray = () => {
 export const fetchDay = (userId) => (dispatch) => {
   const token = cookies.get('token');
 
-  return Axios.get(`${constants.baseApiUrl}/planing/day-tasks/`,
+  return Axios.get(`${constants.baseApiUrl}/planing/day-tasks`,
 	  {
 		headers: {
 	  		Authorization: `Token ${token}`

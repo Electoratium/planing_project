@@ -22,7 +22,9 @@ import history from './history/history';
 
 
 class AppRouter extends Component {
-  componentWillMount() {
+  constructor (props) {
+    super(props);
+
     const { onCheckToken } = this.props;
 
     onCheckToken();

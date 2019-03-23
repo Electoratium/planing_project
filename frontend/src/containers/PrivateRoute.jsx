@@ -7,13 +7,13 @@ const _PrivateRoute = ({ component: Component, ...rest }) => <Route {...rest} re
 
 
 function mapStateToProps(state) {
-  return {
-    login: state.login,
-  };
+	return {
+		login: state.login,
+	};
 }
 
 const PrivateRoute = connect(
-  mapStateToProps,
+	mapStateToProps,
 )(_PrivateRoute);
 
 
