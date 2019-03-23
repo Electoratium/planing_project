@@ -5,6 +5,20 @@ import { fetchDay } from '../../../actions/planing';
 import TaskList from '../../../components/TaskList';
 
 class Day extends Component {
+
+	constructor(props) {
+		super(props);
+
+
+
+		//тут все запросы А НЕ В COMPONENTWILLMOUNT
+	}
+
+
+
+
+
+
 	componentWillMount() {
 		const {userId} = this.props.login;
 		this.props.fetchDay(userId);
@@ -23,7 +37,6 @@ class Day extends Component {
 		);
 	}
 }
-
 
 function mapStateToProps(state) {
 	return {

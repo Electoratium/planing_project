@@ -5,4 +5,10 @@ import thunk from 'redux-thunk';
 import allReducers from '../reducers/index';
 
 
-export default createStore(allReducers, composeWithDevTools(applyMiddleware(thunk)));
+
+
+import logger from '../middleware/logger';
+
+
+console.log(logger);
+export default createStore(allReducers, composeWithDevTools(applyMiddleware(thunk, logger)));
