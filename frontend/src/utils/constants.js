@@ -1,6 +1,8 @@
-const baseApiUrl = 'http://127.0.0.1:8000/api/v1';
+export const drawerWidth = 240;
 
-const loginErrors = {
+export const baseApiUrl = 'http://127.0.0.1:8000/api/v1';
+
+export const loginErrors = {
   invalidEmail: 'Невірний email',
   InvalidPassword: 'Невірний пароль',
   emptyData: 'Відсутні дані',
@@ -9,18 +11,7 @@ const loginErrors = {
   invalidData: 'Даного облікового запису не існує',
 };
 
-const plainningStatus = {
-  dayLoaded: 'DAY_LOADED',
-};
-
-const loginActions = {
-  checkToken: 'CHECK_TOKEN',
-  login: 'LOGIN',
-  logout: 'LOGOUT',
-  loginError: 'LOGIN_ERROR',
-};
-
-const planingTabs = [
+export const planingTabs = [
   {
     name: 'Планування на день',
     url: '/planing/day',
@@ -43,18 +34,9 @@ const planingTabs = [
   },
 ];
 
-const utilityTabs = [
+export const utilityTabs = [
   {
     name: 'Налаштування',
     url: '/settings',
   },
 ];
-
-export default {
-  baseApiUrl,
-  loginActions,
-  loginErrors,
-  planingTabs,
-  utilityTabs,
-  plainningStatus,
-};

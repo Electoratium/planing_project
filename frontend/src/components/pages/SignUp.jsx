@@ -4,7 +4,7 @@ class SignUp extends Component {
 	state = {
 
 	};
-	customFunc = event => {
+	customFunc = (event) => {
 
 	};
 	render() {

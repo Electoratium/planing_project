@@ -1,5 +1,5 @@
 from . import models
-from . import serializers
+from .serializers import *
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
@@ -20,6 +20,47 @@ from rest_framework.status import (
 from rest_framework import permissions
 from rest_framework.response import Response
 
+
+
+
+
+
+
+
+# class CreateUser(CreateAPIView):
+#     queryset = Profile.objects.all()
+#     serializer_class = UserSerializer
+#
+#     def create(self, request, *args, **kwargs): # <- here i forgot self
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         self.perform_create(serializer)
+#         headers = self.get_success_headers(serializer.data)
+#         token, created = Token.objects.get_or_create(user=serializer.instance)
+#         return Response({'token': token.key}, status=status.HTTP_201_CREATED, headers=headers)
+
+
+
+
+
+
+
+
+
+class CheckTokenView(APIView):
+	permission_classes = [permissions.AllowAny]
+
+	def post(self, request, format=None):
+		token = request.data['token']
+		userByToken = get_object_or_404(Token, key=token)
+
+		response = {
+			'userId': userByToken.user.pk,
+			'email': userByToken.user.email,
+		}
+		return Response(response, status=HTTP_200_OK)
+
+
 # Зачем это нужно если можно чекать токен непосредственно при подгрузке
 
 # @csrf_exempt
@@ -38,23 +79,58 @@ from rest_framework.response import Response
 # 	return Response(response, status=HTTP_200_OK)
 
 
-@csrf_exempt
-@api_view(["POST"])
-@permission_classes((AllowAny,))
-def login(request):
-	email = request.data.get("email")
-	password = request.data.get("password")
-	if email is None or password is None:
-		return Response({'error': 'Please provide both username and password'}, status=HTTP_400_BAD_REQUEST)
-	user = authenticate(email=email, password=password)
-	if not user:
-		return Response({'error': 'Invalid Credentials'}, status=HTTP_404_NOT_FOUND)
-	token, _ = Token.objects.get_or_create(user=user)
+# @csrf_exempt
+# @api_view(["POST"])
+# @permission_classes((AllowAny,))
+# def login(request):
+# 	email = request.data.get("email")
+# 	password = request.data.get("password")
+# 	if email is None or password is None:
+		# return Response({'error': 'Please provide both username and password'}, status=HTTP_400_BAD_REQUEST)
+# 	user = authenticate(email=email, password=password)
+# 	if not user:
+# 		return Response({'error': 'Invalid Credentials'}, status=HTTP_404_NOT_FOUND)
+# 	token, _ = Token.objects.get_or_create(user=user)
+#
+#
+# 	return Response({'token': token.key, 'user_id': user.id}, status=HTTP_200_OK)
 
 
-	return Response({'token': token.key, 'user_id': user.id}, status=HTTP_200_OK)
 
-class DayTaskList(APIView):
+# ТУТ ЕЩЕ ПЕРЕДАЕТЬСЯ IS_CHECKED ПОДУМАЙ ЗАЧЕМ ОН НУЖНЕН!?
+# class Login(APIView):
+# 	permission_classes = [permissions.AllowAny]
+# 	def post(self, request, format=None):
+# 		print(request.data)
+# 		serializer = LoginSerializer(data=request.data)
+# 		if serializer.is_valid():
+# 			print('ddf')
+# 		else:
+# 			print('dsfdepigjkdflk')
+
+
+class LoginView(APIView):
+	permission_classes = [permissions.AllowAny]
+
+	def post(self, request, format=None):
+		data = request.data
+
+		email = data.get('email', None)
+		password = data.get('password', None)
+
+		user = authenticate(email=email, password=password)
+
+		if user is not None:
+			if user.is_active:
+				token, created = Token.objects.get_or_create(user=user)
+				return Response({'token': token.key, 'user_id': user.id},status=HTTP_200_OK)
+			else:
+				return Response({'error': 'Invalid Credentials'}, status=HTTP_404_NOT_FOUND)
+		else:
+			return Response({'error': 'Invalid Credentials'}, status=HTTP_404_NOT_FOUND)
+
+
+class DayTaskListView(APIView):
 	permission_classes = [permissions.AllowAny]
 
 	def get(self, request, format=None):
@@ -62,21 +138,20 @@ class DayTaskList(APIView):
 		if not user_id:
 			return Response(status=HTTP_422_UNPROCESSABLE_ENTITY)
 		user_tasks = models.DayTasks.objects.all().filter(owner__id=user_id).only('taskName', 'expirationTime', 'priority__name')
-		serializer = serializers.DayTasksSerializer(user_tasks, many=True)
-		print(serializer.data)
+		serializer = DayTasksSerializer(user_tasks, many=True)
 
 
 		return Response(serializer.data)
 
 	def post(self, request, format=None):
-		serializer = serializers.DayTasksSerializer(request.data)
+		serializer = DayTasksSerializer(request.data)
 		if serializer.is_valid():
 			serializer.save()
 			return Response({'data':serializer.data}, status=HTTP_201_CREATED)
 		return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
-class DayTaskDetail(APIView):
+class DayTaskDetailView(APIView):
 	permission_classes = [permissions.AllowAny]
 
 	def get_object(self, pk):
@@ -87,12 +162,12 @@ class DayTaskDetail(APIView):
 
 	def get(self, request, pk, format=None):
 		task = self.get_object(pk)
-		serializer = serializers.DayTasksSerializer(task)
+		serializer = DayTasksSerializer(task)
 		return Response(serializer.data)
 
 	def put(self, request, pk, format=None):
 		task = self.get_object(pk)
-		serializer = serializers.DayTasksSerializer(task, data=request.data)
+		serializer = DayTasksSerializer(task, data=request.data)
 		if serializer.is_valid():
 			serializer.save()
 			return Response(serializer.data)
@@ -109,7 +184,7 @@ class UserList(APIView):
 	permission_classes = [permissions.AllowAny]
 
 	def post(self, request, format=None):
-		serializer = serializers.UserSerializer(data=request.data)
+		serializer = UserSerializer(data=request.data)
 		if serializer.is_valid():
 			serializer.save()
 			return Response({'data': serializer.data}, status=HTTP_201_CREATED)

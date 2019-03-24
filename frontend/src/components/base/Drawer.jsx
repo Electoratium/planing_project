@@ -16,8 +16,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import {Link} from "react-router-dom";
-import constants from '../../modules/constants';
-import {drawerWidth} from '../../modules/styleConstants';
+import {drawerWidth, planingTabs, utilityTabs} from '../../utils/constants';
 
 const styles = theme => ({
 	root: {
@@ -102,7 +101,7 @@ class Drawer extends React.Component {
 					</div>
 					<Divider />
 					<List>
-						{constants.planingTabs.map( tab => (
+						{planingTabs.map( tab => (
 							<Link to={tab.url} key={tab.name}>
 								<ListItem button>
 									<ListItemIcon>
@@ -115,7 +114,7 @@ class Drawer extends React.Component {
 					</List>
 					<Divider />
 					<List>
-						{constants.utilityTabs.map(tab => (
+						{utilityTabs.map(tab => (
 							<Link to={tab.url} key={tab.name}>
 								<ListItem button>
 									<ListItemIcon>

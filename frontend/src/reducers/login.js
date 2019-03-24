@@ -1,17 +1,17 @@
-import constants from '../modules/constants';
-import { cookies } from '../modules/manageCookies';
+import {CHECK_TOKEN, LOGIN, LOGIN_ERROR, LOGOUT} from '../sagas/login';
+import { cookies } from '../utils/manageCookies';
 
 const initialState = {};
 
 export default function loginReducer(state = initialState, action) {
   switch (action.type) {
-    case constants.loginActions.checkToken:
+    case CHECK_TOKEN:
 
       return {
         ...state,
         ...action.payload,
       };
-    case constants.loginActions.login:
+    case LOGIN:
       if (action.payload.userData.isChecked) {
         cookies.set('token', action.payload.token, 5);
         cookies.set('user_id', action.payload.userData.id, 5);
@@ -23,12 +23,12 @@ export default function loginReducer(state = initialState, action) {
         authToken: action.payload.token,
       };
 
-    case constants.loginActions.loginError:
+    case LOGIN_ERROR:
       return {
         ...state,
         error: action.payload.errorText,
       };
-    case constants.loginActions.logout:
+    case LOGOUT:
       cookies.delete('user_id', '/');
       cookies.delete('email', '/');
       cookies.delete('token', '/');

@@ -9,13 +9,12 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import { drawerWidth } from '../../modules/styleConstants';
+import { drawerWidth } from '../../utils/constants';
 
 import User from '../../containers/User';
 
 
 const styles = theme => ({
-
   deleteStyle: {
     width: '40vw',
     display: 'flex',

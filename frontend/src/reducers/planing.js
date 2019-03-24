@@ -1,6 +1,4 @@
-import { FETCH_DAY } from '../actions/planing';
-import constants from '../modules/constants';
-
+import { FETCH_DAY } from '../sagas/planing';
 
 const initialState = {
   dayPlanning: [],

@@ -18,11 +18,15 @@ from .models import (DayTasks, User)
 # 		fields = ['taskName', 'expirationTime', 'priority', 'owner']
 
 
+
+
+
+
+
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
 		fields = ['id', 'email']
-
 
 class DayTasksSerializer(serializers.ModelSerializer):
 	priority = serializers.ReadOnlyField(source='priority.name')
