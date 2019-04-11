@@ -1,4 +1,4 @@
-import {CHECK_TOKEN, LOGIN, LOGIN_ERROR, LOGOUT} from '../sagas/login';
+import {SIGN_UP, CHECK_TOKEN, LOGIN, LOGIN_ERROR, LOGOUT} from '../sagas/login';
 import { cookies } from '../utils/manageCookies';
 
 const initialState = {};
@@ -6,10 +6,17 @@ const initialState = {};
 export default function loginReducer(state = initialState, action) {
   switch (action.type) {
     case CHECK_TOKEN:
-
       return {
         ...state,
         ...action.payload,
+      };
+
+    case SIGN_UP:
+      console.log(action.payload);
+
+      return {
+        ...state,
+        ...action.payload
       };
     case LOGIN:
       if (action.payload.userData.isChecked) {

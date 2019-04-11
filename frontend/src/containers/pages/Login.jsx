@@ -7,7 +7,7 @@ import LoginField from '../../components/LoginField';
 import {bindActionCreators} from 'redux';
 
 
-import loginActions from '../../actions/login';
+import loginActions from '../../actions/auth';
 
 
 

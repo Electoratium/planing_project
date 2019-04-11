@@ -1,4 +1,4 @@
-import { all } from 'redux-saga/effects'
+import { all } from 'redux-saga/effects';
 
 import * as loginSagas from './login';
 import * as planingSagas from './planing';
@@ -10,6 +10,7 @@ import * as planingSagas from './planing';
 
 export default function* rootSaga() {
 	yield all([
+		loginSagas.watchSignUp(),
 		loginSagas.watchCheckToken(),
 		loginSagas.watchLogin(),
 		loginSagas.watchLogout(),

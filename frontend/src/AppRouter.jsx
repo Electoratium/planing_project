@@ -17,7 +17,7 @@ import Month from './containers/pages/planing/Month';
 import Year from './containers/pages/planing/Year';
 import Projects from './containers/pages/planing/Projects';
 import NotFound from './components/pages/NotFound';
-import loginActions from './actions/login';
+import loginActions from './actions/auth';
 import history from './history/history';
 
 
