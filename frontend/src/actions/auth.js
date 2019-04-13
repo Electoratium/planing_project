@@ -4,17 +4,17 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 
 
-const signUp = (userData) => ({type: SIGN_UP_REQUEST, userData});
+const signUp = userData => ({ type: SIGN_UP_REQUEST, userData });
 
-const checkToken = () => ({type: CHECK_TOKEN_REQUEST});
+const checkToken = () => ({ type: CHECK_TOKEN_REQUEST });
 
-const auth = (loginData) => ({type: LOGIN_REQUEST, loginData});
+const auth = loginData => ({ type: LOGIN_REQUEST, loginData });
 
-const logout = () => ({type: LOGOUT_REQUEST});
+const logout = () => ({ type: LOGOUT_REQUEST });
 
 export default {
-	login: auth,
-	signUp,
-	checkToken,
-	logout,
+  login: auth,
+  signUp,
+  checkToken,
+  logout,
 };
