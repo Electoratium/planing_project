@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import MaterialSnackbar from '@material-ui/core/Snackbar';
 
+
+
+// to do: turn class component into functional
 class SnackBar extends Component {
     state = {
         open: true,

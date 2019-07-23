@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Router, Route, Switch } from 'react-router-dom';
@@ -21,82 +22,88 @@ import loginActions from './actions/auth';
 import history from './history/history';
 
 
+
+/*
+  TO DO: YOU HAVE TO CHANGE PROPS.TYPE WHICH ARE GETTING FROM STORE TO ImmutablePropTypes.map.isRequired
+   and change getting this properties because it getting not object or arr -> map or list (use get);
+*/
 class AppRouter extends Component {
-  constructor (props) {
-    super(props);
+	constructor (props) {
+		super(props);
 
-    const { onCheckToken } = this.props;
+		const { onCheckToken } = this.props;
 
-    onCheckToken();
-  }
+		onCheckToken();
+	}
 
-  showDangerBar() {
-    const { login } = this.props;
+	showDangerBar() {
+		const { login } = this.props;
 
-    if (login.error) {
-      return (
-        <SnackBar
-          message={login.error}
-        />
-      );
-    }
-  }
+		if (login.get('error')) {
+			return (
+				<SnackBar
+					message={login.get('error')}
+				/>
+			);
+		}
+	}
 
-  render() {
-    return (
-      <Router history={history}>
-        <Fragment>
-          { this.showDangerBar()}
-          <Drawer>
-            <Switch>
-              <Route path="/" exact component={Home} />
+	render() {
+		return (
+			<Router history={history}>
+				<Fragment>
+					{ this.showDangerBar()}
+					<Drawer>
+						<Switch>
+							<Route path="/" exact component={Home} />
 
-              <PrivateRoute
-                exact
-                path="/planing"
-                component={
-                  <Redirect to="/planing/day" />
-                }
-              />
-              <PrivateRoute path="/planing/day" component={Day} />
-              <PrivateRoute path="/planing/week" component={Week} />
-              <PrivateRoute path="/planing/month" component={Month} />
-              <PrivateRoute path="/planing/year" component={Year} />
-              <PrivateRoute path="/planing/projects" component={Projects} />
+							<PrivateRoute
+								exact
+								path="/planing"
+								component={
+									<Redirect to="/planing/day" />
+								}
+							/>
+							<PrivateRoute path="/planing/day" component={Day} />
+							<PrivateRoute path="/planing/week" component={Week} />
+							<PrivateRoute path="/planing/month" component={Month} />
+							<PrivateRoute path="/planing/year" component={Year} />
+							<PrivateRoute path="/planing/projects" component={Projects} />
 
-              <Route path="/login" component={Login} />
-              <Route path="/sign-up" component={SignUp} />
+							<Route path="/login" component={Login} />
+							<Route path="/sign-up" component={SignUp} />
 
-              <Route component={NotFound} />
-            </Switch>
-          </Drawer>
+							<Route component={NotFound} />
+						</Switch>
+					</Drawer>
 
-          {/* <Footer /> */}
-        </Fragment>
-      </Router>
-    );
-  }
+					{/* <Footer /> */}
+				</Fragment>
+			</Router>
+		);
+	}
 }
 
 
 AppRouter.propTypes = {
-  onCheckToken: PropTypes.func.isRequired,
-  login: PropTypes.object.isRequired,
+	onCheckToken: PropTypes.func.isRequired,
+	// login: PropTypes.object.isRequired,
+	login: ImmutablePropTypes.map.isRequired
 };
 
 function mapStateToProps(state) {
-  return {
-    login: state.login,
-  };
+	return {
+		login: state.login,
+	};
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({
-    onCheckToken: () => loginActions.checkToken(),
-  }, dispatch);
+	return bindActionCreators({
+		onCheckToken: () => loginActions.checkToken(),
+	}, dispatch);
 }
 
 export default connect(
-  mapStateToProps,
-  matchDispatchToProps,
+	mapStateToProps,
+	matchDispatchToProps,
 )(AppRouter);

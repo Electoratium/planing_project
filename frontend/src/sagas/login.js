@@ -1,3 +1,4 @@
+import { Map } from 'immutable';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import Api from '../utils/api';
 import { cookies } from '../utils/manageCookies';
@@ -29,7 +30,11 @@ export function* checkTokenRequest() {
 			try {
 				const response = yield call(Api.checkToken, token);
 
-				yield put({type: CHECK_TOKEN, payload: {...response.data, authToken: token}});
+				yield put({type: CHECK_TOKEN, payload: new Map({
+						...response.data,
+						authToken: token
+					})
+				});
 			}
 			catch (err) {
 				cookies.delete('token', '/');
@@ -50,14 +55,14 @@ export function* loginRequest(payload) {
 
 			yield put({
 				type: LOGIN,
-			    payload: {
-					userData: {
+			    payload: new Map({
+					userData: new Map({
 						userId: user_id,
 						email: loginData.email,
 						isChecked: loginData.isChecked,
-					},
+					}),
 					token: token
-				}
+				})
 			});
 		}
 		catch (err) {
